@@ -12,9 +12,10 @@ export class ArticleService {
     async getArticleList(args: GetArticleDto) {
         const defaultPageSize = this.config.get('PAGE_SIZE')
         const page = +args.page || 1
-        const pageSize = +args.pageSize || defaultPageSize
+        const pageSize = +args.pageSize || +defaultPageSize
         const whereCategory = args.categoryId ? { id: +args.categoryId } : {}
 
+        console.log(pageSize)
         const data = await this.prisma.article.findMany({
             skip: (page - 1) * pageSize,
             take: pageSize,

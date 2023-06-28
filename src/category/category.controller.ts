@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { CategoryService } from './category.service'
 import { CreateCategoryDto } from './dto/create-category.dto'
 import { UpdateCategoryDto } from './dto/update-category.dto copy'
+import { Auth } from '../auth/decorators/auth.decorator'
+import { Role } from '../auth/enum'
 
 @Controller('category')
 export class CategoryController {
@@ -14,6 +16,7 @@ export class CategoryController {
     update(@Body() updateCategoryDto: UpdateCategoryDto) {
         return this.categoryService.update(updateCategoryDto)
     }
+    @Auth(Role.ADMIN)
     @Get()
     getCategory() {
         return this.categoryService.getList()
